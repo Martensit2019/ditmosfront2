@@ -1,0 +1,43 @@
+.p-checkbox-checked .p-checkbox-box{
+  border-color: var(--secondaryColor)!important;
+  background: var(--secondaryColor)!important;
+}
+
+.p-multiselect{
+  border-color: var(--grayBorderHoverColor)!important;
+}
+.p-multiselect:not(.p-disabled):hover{
+  border-color: var(--grayBorderHoverColor)!important;
+}
+.p-multiselect:not(.p-disabled).p-focus, .p-multiselect:not(.p-disabled).p-multiselect-open{
+  border-color: var(--pinkColor)!important;
+  box-shadow: 0 0 10px var(--pinkColor)!important;
+}
+.p-dialog{
+  border-radius: 8px;
+  padding: 24px;
+}
+.p-dialog-header{
+  font-size: 24px!important;
+  color: var(--opalColor)!important;
+  padding: 12px 0 32px 0!important;
+}
+.p-dialog-content{
+  color: #000000!important;
+  padding: 0!important;
+  font-size: 16px;
+}
+.p-dialog-footer{
+  padding: 32px 0 0 0!important;
+  justify-content: flex-start!important;
+  gap: 32px!important;
+}
+.p-dialog-close-button{
+  color: var(--opalColor)!important;
+  border: none!important;
+  background-color: transparent!important;
+  &:hover{
+    color: var(--secondaryColor)!important;
+    background-color: transparent!important;
+  }
+}

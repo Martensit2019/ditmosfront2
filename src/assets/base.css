@@ -1,0 +1,46 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f3f4f5;
+  line-height: 1.2;
+  font-family: 'Golos Text';
+  font-weight: 400;
+  font-size: 18px;
+  color: #212529;
+}
+a{
+  text-decoration: none;
+}
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  /* padding: 0 20px;
+  @media screen and (max-width: 780px){
+    padding: 0 16px;
+  } */
+}
+.h2{
+  font-weight: 500;
+  font-size: 54px;
+  @media screen and (max-width: 990px){
+    font-size: 48px;
+  }
+  @media screen and (max-width: 780px){
+    font-size: 32px;
+  }
+}
+.main__section{
+  margin-bottom: 80px;
+  @media screen and (max-width: 990px){
+    margin-bottom: 60px;
+  }
+  @media screen and (max-width: 780px){
+    margin-bottom: 40px;
+  }
+}
