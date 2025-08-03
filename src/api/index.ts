@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL
-// axios.defaults.baseURL = 'https://ditmosserver.onrender.com'
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL
+axios.defaults.baseURL = 'https://ditmosserver.onrender.com'
 
 export const getPopularRequest = async () => {
   return axios.get('/popular')
