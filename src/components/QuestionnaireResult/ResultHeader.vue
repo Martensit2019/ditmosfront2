@@ -50,16 +50,18 @@ const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'd
 <style lang="scss" scoped>
 .result-header {
   display: flex;
+  gap: 16px;
   @media (max-width: 1020px) {
     flex-direction: column;
   }
-  gap: 16px;
   &__content {
     width: 70%;
     display: flex;
     flex-direction: column;
     padding: 40px;
     min-height: 300px;
+    background: #35bc4a;
+    border-radius: 24px;
     @media (max-width: 1200px) {
       padding: 32px;
       width: 100%;
@@ -67,9 +69,6 @@ const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'd
     @media (max-width: 700px) {
       padding: 24px 20px;
     }
-
-    background: #35bc4a;
-    border-radius: 24px;
   }
   &__suptitle {
     font-family: 'Golos Text';
