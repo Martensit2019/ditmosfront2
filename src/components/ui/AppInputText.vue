@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import InputText from 'primevue/InputText'
+import InputText from 'primevue/inputtext'
 
 interface IProps {
   modelValue?: string
