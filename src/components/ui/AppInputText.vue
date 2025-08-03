@@ -1,6 +1,5 @@
-<!-- CustomInput.vue -->
 <template>
-  <Input
+  <InputText
     v-bind="$attrs"
     v-model="localValue"
     :placeholder="placeholder"
@@ -13,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import Input from 'primevue/InputText'
+import InputText from 'primevue/InputText'
 
 interface IProps {
   modelValue?: string
