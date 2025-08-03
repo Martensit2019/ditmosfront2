@@ -1,30 +1,26 @@
 <template>
-    <!-- <Router-Link :to="`/questionnaires/${questionnaire.id}`"> -->
-    <Router-Link class="advancedcard" :to="link">
-
-      <div class="advancedcard__content">
-        <div class="advancedcard__title">{{ questionnaire.title }}</div>
-        <div class="advancedcard__description">{{ questionnaire.description }}</div>
-        <AppLink v-if="!isTopic" to="/questionnaires" variant="primary" text="Начать">
+  <Router-Link class="advancedcard" :to="link">
+    <div class="advancedcard__content">
+      <div class="advancedcard__title">{{ questionnaire.title }}</div>
+      <div class="advancedcard__description">{{ questionnaire.description }}</div>
+      <div class="advancedcard__link">
+        <AppLink v-if="!isTopic" :to="link" variant="primary" text="Начать">
           <template #after-icon>
             <AppMdiIcon :icon-path="mdiOpenInNew" size="18" />
           </template>
         </AppLink>
       </div>
+    </div>
 
-      <div class="advancedcard__creative">
-
-        <div class="questionnaire-item__figure">
-          <div class="questionnaire-item__figure-img">
-            <img :src="questionnaire.img" :alt="questionnaire.title" />
-          </div>
-          <div class="questionnaire-item__figure-attachment"></div>
+    <div class="advancedcard__creative">
+      <div class="questionnaire-item__figure">
+        <div class="questionnaire-item__figure-img">
+          <img :src="questionnaire.img" :alt="questionnaire.title" />
         </div>
-
+        <div class="questionnaire-item__figure-attachment"></div>
       </div>
-    </Router-Link>
-
-
+    </div>
+  </Router-Link>
 </template>
 
 <script setup lang="ts">
@@ -52,40 +48,44 @@ const link = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-.advancedcard{
+.advancedcard {
   display: flex;
   flex-wrap: wrap;
   padding: 24px;
   border-radius: 24px;
-  // border: 1px solid #e7eae9;
-  background-color: #ffffff;
+  background-color: var(--baseWhiteColor);
   column-gap: 60px;
   width: calc(50% - 16px);
-  @media screen and (max-width: 1200px){
+  @media screen and (max-width: 1200px) {
     width: 100%;
   }
-  &__creative{
+  &__creative {
     width: 166px;
-    @media screen and (max-width: 480px){
+    @media screen and (max-width: 480px) {
       order: 1;
       margin: 0 auto 20px auto;
     }
   }
-  &__content{
+  &__content {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     width: calc(100% - 166px - 60px);
-    @media screen and (max-width: 480px){
+    @media screen and (max-width: 480px) {
       width: 100%;
       order: 2;
     }
   }
-  &__title{
+  &__title {
     margin-bottom: 8px;
     font-size: 24px;
     font-weight: 500;
   }
-  &__description{
-    margin-bottom: 20px;
+  &__description {
+    margin-bottom: auto;
+  }
+  &__link {
+    margin-top: 20px;
   }
 }
 
@@ -97,6 +97,7 @@ a {
 .questionnaire-item {
   &__figure {
     position: relative;
+    z-index: 1;
     &-img {
       overflow: hidden;
       max-height: 216px;

@@ -1,43 +1,137 @@
-.p-checkbox-checked .p-checkbox-box{
-  border-color: var(--secondaryColor)!important;
-  background: var(--secondaryColor)!important;
+.p-checkbox-checked
+  .p-checkbox-box {
+  border-color: var(
+    --secondaryColor
+  ) !important;
+  background: var(
+    --secondaryColor
+  ) !important;
 }
 
-.p-multiselect{
-  border-color: var(--grayBorderHoverColor)!important;
+.p-multiselect {
+  border-color: var(
+    --grayBorderHoverColor
+  ) !important;
 }
-.p-multiselect:not(.p-disabled):hover{
-  border-color: var(--grayBorderHoverColor)!important;
+.p-multiselect:not(
+    .p-disabled
+  ):hover {
+  border-color: var(
+    --grayBorderHoverColor
+  ) !important;
 }
-.p-multiselect:not(.p-disabled).p-focus, .p-multiselect:not(.p-disabled).p-multiselect-open{
-  border-color: var(--pinkColor)!important;
-  box-shadow: 0 0 10px var(--pinkColor)!important;
+.p-multiselect:not(
+    .p-disabled
+  ).p-focus,
+.p-multiselect:not(
+    .p-disabled
+  ).p-multiselect-open {
+  border-color: var(
+    --pinkColor
+  ) !important;
+  box-shadow: 0
+    0
+    10px
+    var(
+      --pinkColor
+    ) !important;
 }
-.p-dialog{
+.p-dialog {
   border-radius: 8px;
   padding: 24px;
+  margin: 0
+    15px;
 }
-.p-dialog-header{
-  font-size: 24px!important;
-  color: var(--opalColor)!important;
-  padding: 12px 0 32px 0!important;
+.p-dialog-header {
+  font-size: 24px !important;
+  color: var(
+    --opalColor
+  ) !important;
+  padding: 12px
+    0
+    32px
+    0 !important;
 }
-.p-dialog-content{
-  color: #000000!important;
-  padding: 0!important;
+.p-dialog-content {
+  color: #000000 !important;
+  padding: 0 !important;
   font-size: 16px;
 }
-.p-dialog-footer{
-  padding: 32px 0 0 0!important;
-  justify-content: flex-start!important;
-  gap: 32px!important;
+.p-dialog-footer {
+  padding: 32px
+    0
+    0
+    0 !important;
+  justify-content: flex-start !important;
+  gap: 32px !important;
 }
-.p-dialog-close-button{
-  color: var(--opalColor)!important;
-  border: none!important;
-  background-color: transparent!important;
-  &:hover{
-    color: var(--secondaryColor)!important;
-    background-color: transparent!important;
+.p-dialog-close-button {
+  color: var(
+    --opalColor
+  ) !important;
+  border: none !important;
+  background-color: transparent !important;
+  &:hover {
+    color: var(
+      --secondaryColor
+    ) !important;
+    background-color: transparent !important;
   }
+}
+
+.p-accordionheader {
+  padding: 24px !important;
+  @media (max-width: 460px) {
+    padding: 20px !important;
+  }
+  .p-icon {
+    display: none;
+  }
+
+  &[data-p="active"] {
+    .accordeon__trigger {
+      transform: rotate(
+        180deg
+      );
+    }
+  }
+}
+.p-accordionheader-toggle-icon {
+  min-width: 18px;
+  margin-left: 16px;
+}
+.p-accordioncontent-content {
+  padding: 0
+    24px
+    24px !important;
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #13151a;
+  @media (max-width: 460px) {
+    font-size: 15px;
+    line-height: 20px;
+  }
+}
+
+.p-textarea:enabled:focus,
+.p-inputtext:enabled:focus {
+  border-color: var(
+    --grayBorderColor
+  ) !important;
+  font-family: "Golos Text" !important;
+}
+
+.p-inputtext {
+  box-sizing: border-box;
+  padding: 14px
+    16px;
+  gap: 10px;
+  height: 52px;
+  border: 1px
+    solid
+    #dee1e5;
+  border-radius: 8px;
 }

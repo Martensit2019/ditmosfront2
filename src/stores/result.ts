@@ -1,9 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { IQuiz, IResults, IViolations, WrongAnswerInfo } from '@/api/types'
+import type {
+  IQuestionsWithWrongAnswer,
+  IQuiz,
+  IResults,
+  IViolations,
+  WrongAnswerInfo,
+} from '@/api/types'
 
 export const useResultsStore = defineStore('survey-results', () => {
   const results = ref<IResults | null>(null)
+  const isDialogEmailVisible = ref<boolean>(false)
+  const isDialogConfirmVisible = ref<boolean>(false)
 
   const violations = computed(() => {
     if (!results.value) return null
@@ -24,7 +32,14 @@ export const useResultsStore = defineStore('survey-results', () => {
     ) as IViolations[]
   })
 
-  const setResults = (quiz: IQuiz, wrongAnswers: WrongAnswerInfo[], progressStepTotal: number) => {
+  const percent = computed(() => results.value && results.value.percent)
+
+  const setResults = (
+    quiz: IQuiz,
+    questionsWithWrongAnswer: IQuestionsWithWrongAnswer[],
+    wrongAnswers: WrongAnswerInfo[],
+    progressStepTotal: number,
+  ) => {
     let percent = progressStepTotal
       ? Math.round((wrongAnswers.length / progressStepTotal) * 100)
       : 0
@@ -33,22 +48,27 @@ export const useResultsStore = defineStore('survey-results', () => {
 
     let title
     if (!percent) {
-      title = 'Нарушений обязательных требований не выявлено'
-    } else if (percent <= 33.3) {
-      title = 'Возможны незначительные нарушения обязательных требований'
-    } else if (percent > 33.3 && percent < 66.6) {
-      title = 'Возможны нарушения обязательных требований'
+      title = 'Несоответствий не выявлено'
+    } else if (percent <= 20) {
+      title = 'Выявлены незнaчительные несоответствия'
+    } else if (percent > 20 && percent < 60) {
+      title = 'Выявлены несоответствия'
     } else {
-      title = 'Высокая вероятность нарушения обязательных требований'
+      title = 'Выявлены знaчительные несоответствия'
     }
+
+    const correctAnswers = progressStepTotal - wrongAnswers.length
 
     results.value = {
       name: quiz ? quiz.name : '',
+      questionsWithWrongAnswer: Array.from(new Set(questionsWithWrongAnswer)),
       wrongAnswers: Array.from(new Set(wrongAnswers)),
       percent,
       title,
+      correctAnswers,
+      totalQuestions: progressStepTotal,
     } as IResults
   }
 
-  return { results, violations, setResults }
+  return { results, violations, percent, isDialogEmailVisible, isDialogConfirmVisible, setResults }
 })

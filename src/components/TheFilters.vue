@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="filters__bottom">
-          <AppMultiSelect
+          <!-- <AppMultiSelect
             v-model="selectedRfSubjects"
             v-show="isVisible"
             :options="rfSubjects"
@@ -34,7 +34,7 @@
             selectedItemsLabel="{0}"
             :maxSelectedLabels="0"
             style="width: 300px"
-          />
+          /> -->
 
           <AppMultiSelect
             v-model="selectedItems2"
@@ -56,11 +56,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref } from 'vue'
 import AppMultiSelect from './ui/AppMultiSelect.vue'
 import AppDropdown from '@/components/ui/AppDropdown.vue'
-import { getRfSubjectsRequest } from '@/api'
-import type { IRfSubject } from '@/api/types'
+// import { getRfSubjectsRequest } from '@/api'
+// import type { IRfSubject } from '@/api/types'
 import AppButton from './ui/AppButton.vue'
 import AppMdiIcon from './ui/AppMdiIcon.vue'
 import { mdiTuneVariant } from '@mdi/js'
@@ -73,33 +73,33 @@ interface IProps {
 }
 defineProps<IProps>()
 
-const rfSubjects = ref<IRfSubject[]>([])
-const selectedRfSubjects = ref<IRfSubject[]>([])
-
-const isSelected = computed(() => !!selectedRfSubjects.value.length)
+// const rfSubjects = ref<IRfSubject[]>([])  // для выбранного региона, пока фильтр по регионам отключили
+// const selectedRfSubjects = ref<IRfSubject[]>([])
+const isSelected = ref<number>(0)
+// const isSelected = computed(() => !!selectedRfSubjects.value.length)
 
 const selectedItems2 = ref([])
 const options2 = ref([])
 
-const getRfSubjects = async () => {
-  try {
-    const { data } = await getRfSubjectsRequest()
-    if (data) {
-      rfSubjects.value = [...data]
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
+// const getRfSubjects = async () => {
+//   try {
+//     const { data } = await getRfSubjectsRequest()
+//     if (data) {
+//       rfSubjects.value = [...data]
+//     }
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 const declension = (forms: string[], val: number) => {
   const cases = [2, 0, 1, 1, 1, 2]
   return forms[val % 100 > 4 && val % 100 < 20 ? 2 : cases[val % 10 < 5 ? val % 10 : 5]]
 }
 
-onMounted(() => {
-  getRfSubjects()
-})
+// onMounted(() => {
+//   getRfSubjects()
+// })
 
 defineExpose({
   isSelected,

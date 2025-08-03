@@ -24,76 +24,72 @@
           <div class="quiz__question">
             <div class="quiz__title">Ответьте на вопросы</div>
             <!-- Start Уточняющие вопросы -->
-              <div v-if="isAdditional" class="quiz__additional-question">
-                <div class="quiz__additional-question--title">
-                  Уточнения к вопросу {{ currentQuestionNumber + 1 }}
-                </div>
+            <div v-if="isAdditional" class="quiz__additional-question">
+              <div class="quiz__additional-question--title">
+                Уточнения к вопросу {{ currentQuestionNumber + 1 }}
+              </div>
+              <div
+                class="quiz__additional-question--text"
+                style="padding-top: 26px; padding-left: 24px"
+              >
+                Уточняющий вопрос {{ currentQuestionNumberAdditional + 1 }} из
+                {{ totalQuestionsAdditional }}
+              </div>
+              <div class="quiz__question-text">{{ currentQuestionAdditional }}</div>
+              <div v-if="isImageCurrentQuestionAdditional" class="quiz__answer-images">
                 <div
-                  class="quiz__additional-question--text"
-                  style="padding-top: 26px; padding-left: 24px"
+                  class="quiz__answer-image"
+                  v-for="btn in currentAnswersAdditional"
+                  @click="selectAnswerAdditional(btn)"
+                  :key="btn.id"
                 >
-                  Уточняющий вопрос {{ currentQuestionNumberAdditional + 1 }} из
-                  {{ totalQuestionsAdditional }}
-                </div>
-                <div class="quiz__question-text">{{ currentQuestionAdditional }}</div>
-                <div v-if="isImageCurrentQuestionAdditional" class="quiz__answer-images">
-                  <div
-                    class="quiz__answer-image"
-                    v-for="btn in currentAnswersAdditional"
-                    @click="selectAnswerAdditional(btn)"
-                    :key="btn.id"
-                  >
-                    {{ btn.id }}
-                    <img :src="btn.image" alt="" />
-                  </div>
-                </div>
-
-                <div v-else class="quiz__answer-btns">
-                  <AppButton
-                    v-for="btn in currentAnswersAdditional"
-                    @click="selectAnswerAdditional(btn)"
-                    :key="btn.id"
-                    :disabled="isFullProgress"
-                    variant="primary"
-                    >{{ btn.text }}</AppButton
-                  >
-                </div>
-              </div>
-              <!-- End Уточняющие вопросы -->
-              <div v-else>
-                <div>
-                  Вопрос {{ currentQuestionNumber + 1 }} из {{ totalQuestions }}
-                  <span v-if="isQuestionsInCurrentAnswers" class="quiz__clarifications">
-                    При ответе «Да» будут показаны уточняющие вопросы
-                  </span>
-                </div>
-                <div class="quiz__question-text">{{ currentQuestion }}</div>
-
-                <div class="quiz__answer-btns">
-                  <AppButton
-                    v-for="btn in currentAnswers"
-                    @click="selectAnswer(btn)"
-                    :key="btn.id"
-                    :disabled="isFullProgress"
-                    variant="primary"
-                    class="quiz__btn"
-                    >{{ btn.text }}</AppButton
-                  >
+                  <img :src="btn.image" alt="" />
                 </div>
               </div>
 
-              <div v-if="isFullProgress" class="quiz__complete">
-                  <AppButton variant="secondary"
-                      >Отменить и закрыть</AppButton
-                    >
-                  <div></div>
-                  <div style="text-align: end">
-                    <AppButton variant="primary" class="mr32" @click="complete"
-                      >Завершить&nbsp;опрос</AppButton
-                    >
-                  </div>
+              <div v-else class="quiz__answer-btns">
+                <AppButton
+                  v-for="btn in currentAnswersAdditional"
+                  @click="selectAnswerAdditional(btn)"
+                  :key="btn.id"
+                  :disabled="isFullProgress"
+                  variant="primary"
+                  >{{ btn.text }}</AppButton
+                >
               </div>
+            </div>
+            <!-- End Уточняющие вопросы -->
+            <div v-else>
+              <div>
+                Вопрос {{ currentQuestionNumber + 1 }} из {{ totalQuestions }}
+                <span v-if="isQuestionsInCurrentAnswers" class="quiz__clarifications">
+                  При ответе «Да» будут показаны уточняющие вопросы
+                </span>
+              </div>
+              <div class="quiz__question-text">{{ currentQuestion }}</div>
 
+              <div class="quiz__answer-btns">
+                <AppButton
+                  v-for="btn in currentAnswers"
+                  @click="selectAnswer(btn)"
+                  :key="btn.id"
+                  :disabled="isFullProgress"
+                  variant="primary"
+                  class="quiz__btn"
+                  >{{ btn.text }}</AppButton
+                >
+              </div>
+            </div>
+
+            <div v-if="isFullProgress" class="quiz__complete">
+              <AppButton variant="secondary">Отменить и закрыть</AppButton>
+              <div></div>
+              <div style="text-align: end">
+                <AppButton variant="primary" class="mr32" @click="complete"
+                  >Завершить&nbsp;опрос</AppButton
+                >
+              </div>
+            </div>
           </div>
 
           <div class="quiz__wrap-requirement">
@@ -104,7 +100,6 @@
               <div>Требование из проверочного листа</div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -128,10 +123,10 @@
     </div>
 
     <template #footer>
-        <AppButton variant="primary">Продолжить</AppButton>
-        <AppButton label="Подтвердить" variant="text" @click="isDialogVisible = false"
-          >Вернуться</AppButton
-        >
+      <AppButton variant="primary">Продолжить</AppButton>
+      <AppButton label="Подтвердить" variant="text" @click="isDialogVisible = false"
+        >Вернуться</AppButton
+      >
     </template>
   </AppDialog>
 </template>
@@ -141,7 +136,14 @@ import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AppButton from './ui/AppButton.vue'
 import AppMdiIcon from './ui/AppMdiIcon.vue'
-import type { IQuiz, Answer, TQuestionAnswer, WrongAnswerInfo } from '@/api/types'
+import type {
+  IQuiz,
+  Answer,
+  TQuestionAnswer,
+  WrongAnswerInfo,
+  IQuestionsWithWrongAnswer,
+  Question,
+} from '@/api/types'
 import { mdiClose, mdiPlaylistEdit } from '@mdi/js'
 import AppDialog from './ui/AppDialog.vue'
 import { useResultsStore } from '@/stores/result'
@@ -162,6 +164,12 @@ const addedAnswers = ref<TQuestionAnswer>({}) // объект {вопрос_id: 
 const currentQuestionNumber = ref<number>(0)
 const isAdditional = ref<boolean>(false)
 
+// Id текущего вопроса для отправки результатов
+const currentQuestionNumberInfo = computed(() =>
+  props.quiz && props.quiz.questions.length
+    ? props.quiz.questions[currentQuestionNumber.value]
+    : null,
+)
 // Id текущего вопроса для отправки результатов
 const currentQuestionNumberId = computed(() =>
   props.quiz && props.quiz.questions.length
@@ -199,6 +207,10 @@ const currentQuestionNumberAdditional = ref<number>(0)
 const totalQuestionsAdditional = computed(
   () => questionsAdditional.value && questionsAdditional.value.length,
 )
+const currentQuestionNumberInfoAdditional = computed(
+  () =>
+    questionsAdditional.value && questionsAdditional.value[currentQuestionNumberAdditional.value],
+)
 const currentQuestionNumberIdAdditional = computed(
   () =>
     questionsAdditional.value &&
@@ -220,22 +232,40 @@ const currentAnswersAdditional = computed(
     questionsAdditional.value[currentQuestionNumberAdditional.value].answers,
 )
 
+const addQuestionWithWrongAnswer = (question: Question, answer: WrongAnswerInfo) => {
+  // if(isAdditional.value)
+
+  const number = isAdditional.value
+    ? `${question.number}.${currentQuestionNumberInfoAdditional.value?.number}`
+    : question.number
+
+  const text =
+    isAdditional.value && currentQuestionNumberInfoAdditional.value
+      ? currentQuestionNumberInfoAdditional.value.text
+      : question.text
+
+  questionsWithWrongAnswer.value.push({
+    number,
+    text,
+    memo: answer.memo as string,
+    requirement: answer.requirement as string,
+    npa: answer.npa as string,
+  })
+}
+
 const addAnswers = (question: string, answer: string) => {
   addedAnswers.value[question] = answer
 }
 
+const questionsWithWrongAnswer = ref<IQuestionsWithWrongAnswer[]>([]) //Вопросы с неправильными ответами
 const wrongAnswers = ref<WrongAnswerInfo[]>([]) //Неправильные ответы
 
 const responseProcessing = (answer: Answer) => {
-  console.log('answer', answer)
-  console.log('isWrongAnswer', answer.isWrongAnswer)
   if (!answer.isWrongAnswer) return
-  // console.log('wrongAnswers', wrongAnswers.value)
-  // console.log('answer.wrongAnswerInfo', answer.wrongAnswerInfo)
+  if (currentQuestionNumberInfo.value)
+    addQuestionWithWrongAnswer(currentQuestionNumberInfo.value, answer.wrongAnswerInfo)
   wrongAnswers.value.push(answer.wrongAnswerInfo)
-  console.log('wrongAnswers', wrongAnswers.value)
 }
-// ===========================
 
 const selectAnswer = (answer: Answer) => {
   responseProcessing(answer)
@@ -292,6 +322,7 @@ const selectAnswerAdditional = (answer: Answer) => {
 }
 
 const goBack = () => {
+  questionsWithWrongAnswer.value.pop()
   wrongAnswers.value.pop()
   if (progress.value === 100) {
     progress.value -= 2 * progressStepValue.value
@@ -329,7 +360,12 @@ const complete = async () => {
 
   // start обработка результатов опроса на фронте
   if (props.quiz) {
-    store.setResults(props.quiz, wrongAnswers.value, progressStepTotal.value)
+    store.setResults(
+      props.quiz,
+      questionsWithWrongAnswer.value,
+      wrongAnswers.value,
+      progressStepTotal.value,
+    )
     router.push(`${route.path}/result`)
   }
   // end обработка результатов опроса на фронте
@@ -349,16 +385,14 @@ const onDialogShow = () => {
 
 <style lang="scss" scoped>
 .quiz {
-  &__wrapper {}
   &__top {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 16px 0;
-    @media screen and (max-width: 780px){
+    @media screen and (max-width: 780px) {
       justify-content: flex-start;
     }
-
   }
   &__row {
     display: grid;
@@ -378,14 +412,14 @@ const onDialogShow = () => {
         color: red;
       }
     }
-    @media screen and (max-width: 780px){
+    @media screen and (max-width: 780px) {
       width: 100%;
       margin-bottom: 8px;
     }
   }
   &__top-title {
     font-size: 16px;
-    @media screen and (max-width: 780px){
+    @media screen and (max-width: 780px) {
       width: 100%;
       margin-bottom: 8px;
     }
@@ -417,7 +451,7 @@ const onDialogShow = () => {
   }
   &__question {
     width: calc(100% - 270px - 32px);
-    @media screen and (max-width: 780px){
+    @media screen and (max-width: 780px) {
       width: 100%;
     }
   }
@@ -461,10 +495,10 @@ const onDialogShow = () => {
       border-radius: 30px;
     }
   }
-  &__wrap-requirement{
+  &__wrap-requirement {
     width: 270px;
     align-self: center;
-    @media screen and (max-width: 780px){
+    @media screen and (max-width: 780px) {
       width: 100%;
       margin-bottom: 32px;
     }
@@ -500,18 +534,18 @@ const onDialogShow = () => {
     padding-top: 26px;
     padding-left: 24px;
   }
-  &__btn{
+  &__btn {
     min-width: 80px;
     justify-content: center;
   }
 
-  &__body{
+  &__body {
     display: flex;
     flex-wrap: wrap;
     margin-top: 32px;
     justify-content: space-between;
   }
-  &__complete{
+  &__complete {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

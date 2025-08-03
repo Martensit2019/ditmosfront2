@@ -30,7 +30,7 @@ const banner = {
 
 const total = ref(0)
 const filters = ref()
-const isSelectedRegions = computed(() => filters.value && filters.value.isSelected)
+// const isSelectedRegions = computed(() => filters.value && filters.value.isSelected) // для выбранного региона, пока фильтр по регионам отключили
 
 const questionnaires = ref<IQuestionnaire[]>([])
 const isLoading = ref(false)
@@ -50,22 +50,23 @@ const getQuestionnaires = async () => {
   }
 }
 
-watch(isSelectedRegions, (oldVal, newVal) => {
-  if (
-    (oldVal === false && newVal === undefined) ||
-    (oldVal === null && newVal === false) ||
-    (oldVal === false && newVal === null)
-  ) {
-    return
-  }
+// для выбранного региона, пока фильтр по регионам отключили
+// watch(isSelectedRegions, (oldVal, newVal) => {
+//   if (
+//     (oldVal === false && newVal === undefined) ||
+//     (oldVal === null && newVal === false) ||
+//     (oldVal === false && newVal === null)
+//   ) {
+//     return
+//   }
 
-  if (!isSelectedRegions.value) {
-    getQuestionnaires()
-  } else {
-    total.value = 0
-    questionnaires.value = []
-  }
-})
+//   if (!isSelectedRegions.value) {
+//     getQuestionnaires()
+//   } else {
+//     total.value = 0
+//     questionnaires.value = []
+//   }
+// })
 
 onMounted(() => {
   getQuestionnaires()

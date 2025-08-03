@@ -78,7 +78,7 @@
     <div class="dialog-content">
 
       <video width="100%" height="auto" controls autoplay>
-        <!-- <source src="../assets/video/010425_Объясняющий ролик.mp4" type="video/mp4"> -->
+        <source src="https://knd.mos.ru/api/files/media/cbb74cae-0330-44ee-a773-0c6a16a90c48" type="video/mp4">
       </video>
 
 

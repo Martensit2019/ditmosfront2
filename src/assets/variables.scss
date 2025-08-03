@@ -1,24 +1,31 @@
-:root{
+:root {
+  --baseWhiteColor: #fff;
 
   --baseOrangeColor: #fa712b;
   --baseOrangeColorHover: #e65d17;
 
+  --bgPeach: #ffdfcc;
+
   --baseGrayColor: #f3f4f5;
 
-  --baseGreenColor: #35BC4A;
+  --baseGreenColor: #35bc4a;
+
+  --baseBlackColor: #13151a;
+
+  --bgMint: #d4fcdb;
 
   --secondaryColor: #f75d47;
   --secondaryColorHover: #f64027;
 
   --pinkColor: #fa9a8d;
-  --grayBorderColor: #D2D7D6;
-  --grayBorderHoverColor: #A7B1AF;
+  --grayBorderColor: #d2d7d6;
+  --grayBorderHoverColor: #a7b1af;
 
   --buttonTextColor: #3c514e;
 
   --opalColor: #163832;
 }
 
-.mr32{
+.mr32 {
   margin-right: 32px;
 }

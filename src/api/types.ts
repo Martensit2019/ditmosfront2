@@ -147,11 +147,22 @@ export interface Accessibility {
 }
 
 export type TQuestionAnswer = Record<string, string>
+
+export interface IQuestionsWithWrongAnswer {
+  number: string
+  text: string
+  memo: string
+  requirement: string
+  npa: string
+}
 export interface IResults {
   name: string
+  questionsWithWrongAnswer: IQuestionsWithWrongAnswer[]
   wrongAnswers: WrongAnswerInfo
   percent: number
   title: string
+  correctAnswers: number
+  totalQuestions: number
 }
 export interface IViolations {
   violationName: string
