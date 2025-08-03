@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import Input from 'primevue/inputText'
+import { computed } from 'vue'
+import Input from 'primevue/InputText'
 
 interface IProps {
   modelValue?: string
