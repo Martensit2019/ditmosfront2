@@ -4,11 +4,7 @@
     <div class="questcard__description">{{ questionnaire.description }}</div>
     <RouterLink :to="questionnaire.link" class="questcard__link">
       <AppCircle :color="bgCircle">
-        <img
-          v-if="questionnaire.icon"
-          :src="`src/assets/i/${props.questionnaire.icon}.svg`"
-          alt=""
-        />
+        <img v-if="questionnaire.icon" :src="iconUrl" alt="" />
         <AppMdiIcon v-else :icon-path="mdiArrowRight" size="24" />
       </AppCircle>
     </RouterLink>
@@ -33,7 +29,7 @@ const bgCircle = computed(() =>
     : 'var(--baseGreenColor)',
 )
 
-const iconUrl = computed(() => `src/assets/i/${props.questionnaire.icon}.svg`)
+const iconUrl = computed(() => `/${props.questionnaire.icon}.svg`)
 </script>
 
 <style lang="scss" scoped>
