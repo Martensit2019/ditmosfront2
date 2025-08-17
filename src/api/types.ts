@@ -4,6 +4,7 @@ export interface IPopular {
   title: string
   description: string
   link: string
+  icon?: string
 }
 export interface IRfSubject {
   id: string

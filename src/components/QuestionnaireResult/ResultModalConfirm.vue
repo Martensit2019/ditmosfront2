@@ -30,5 +30,3 @@ import AppButton from '@/components/ui/AppButton.vue'
 
 const store = useResultsStore()
 </script>
-
-<style lang="scss" scoped></style>

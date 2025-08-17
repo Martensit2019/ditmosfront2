@@ -9,7 +9,7 @@
         </div>
         <div>
           <div v-if="percent" class="result-header__btns">
-            <div class="result-header__btn">
+            <div class="result-header__btn" @click="$emit('openPdf')">
               <img src="/src/assets/i/fi-sr-disk.svg" />
               <div style="">Скачать результаты</div>
             </div>
@@ -26,7 +26,7 @@
       <ResultInformer />
     </div>
   </div>
-  <ResultModalEmail />
+  <ResultModalEmail @sendPdf="$emit('sendPdf')" />
   <ResultModalConfirm />
 </template>
 
@@ -45,6 +45,15 @@ const percent = ref<number>(store.percent || 0)
 
 const background = computed(() => (percent.value > 20 ? orange : green))
 const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'dislike') : 'like'))
+
+defineEmits<{
+  (e: 'openPdf'): void
+  (e: 'sendPdf'): void
+}>()
+
+// const sendPdf = () => {
+//   emits('sendPdf')
+// }
 </script>
 
 <style lang="scss" scoped>
@@ -76,7 +85,7 @@ const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'd
     font-weight: 500;
     font-size: 24px;
     line-height: 32px;
-    color: #fff;
+    color: var(--baseWhiteColor);
     margin-bottom: 12px;
     @media (max-width: 700px) {
       font-size: 20px;
@@ -84,14 +93,12 @@ const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'd
     }
   }
   &__title {
-    // width: 875px;
-    // height: 44px;
     font-family: 'Golos Text';
     font-style: normal;
     font-weight: 500;
     font-size: 40px;
     line-height: 44px;
-    color: #fff;
+    color: var(--baseWhiteColor);
     margin-bottom: auto;
     @media (max-width: 700px) {
       font-size: 28px;
@@ -129,7 +136,7 @@ const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'd
     min-width: 380px;
     width: 30%;
     min-height: 300px;
-    background: #fff;
+    background: var(--baseWhiteColor);
     border-radius: 24px;
     padding: 40px;
     font-family: 'Golos Text';
@@ -163,14 +170,14 @@ const icon = computed(() => (percent.value ? (percent.value < 60 ? 'danger' : 'd
     gap: 8px;
     width: 251px;
     height: 56px;
-    border: 1px solid #fff;
+    border: 1px solid var(--baseWhiteColor);
     border-radius: 40px;
     font-family: 'Golos Text';
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 24px;
-    color: #fff;
+    color: var(--baseWhiteColor);
     cursor: pointer;
   }
   &__risk-title {

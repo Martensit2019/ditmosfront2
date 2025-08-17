@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { IQuestionnaire } from '@/api/types'
 import { getQuestionnairesRequest } from '@/api'
 import HeroBanner from '@/components/HeroBanner.vue'

@@ -42,12 +42,18 @@ import { useResultsStore } from '@/stores/result'
 import AppInputText from '@/components/ui/AppInputText.vue'
 import AppDialog from '@/components/ui/AppDialog.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import axios from 'axios'
 
 const store = useResultsStore()
+
+const emit = defineEmits<{
+  (e: 'sendPdf'): void
+}>()
 
 const email = ref<string>('')
 const validationError = ref<boolean>(false)
 const errorMessage = ref<string>('')
+const percent = ref<number>(store.percent ? store.percent : 0)
 
 const validateField = () => {
   if (!email.value.trim()) return 'Email не может быть пустым'
@@ -58,18 +64,18 @@ const validateField = () => {
 
 const handleSubmit = () => {
   errorMessage.value = validateField()
+
   validationError.value = !!errorMessage.value
   if (!validationError.value) {
     store.isDialogEmailVisible = false
     setTimeout(() => {
       store.isDialogConfirmVisible = true
+      store.email = email.value
+      emit('sendPdf')
     }, 300)
   }
 }
 
-// const openEmailDialog = () => {
-//   store.isDialogEmailVisible = true
-// }
 const onDialogEmailHide = () => {
   store.isDialogEmailVisible = false
   console.log('Диалог закрыт')
@@ -78,5 +84,3 @@ const onDialogEmailShow = () => {
   console.log('Диалог открыт')
 }
 </script>
-
-<style lang="scss" scoped></style>

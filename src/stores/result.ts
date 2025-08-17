@@ -10,6 +10,7 @@ import type {
 
 export const useResultsStore = defineStore('survey-results', () => {
   const results = ref<IResults | null>(null)
+  const email = ref<string | null>(null)
   const isDialogEmailVisible = ref<boolean>(false)
   const isDialogConfirmVisible = ref<boolean>(false)
 
@@ -70,5 +71,29 @@ export const useResultsStore = defineStore('survey-results', () => {
     } as IResults
   }
 
-  return { results, violations, percent, isDialogEmailVisible, isDialogConfirmVisible, setResults }
+  const sendMail = async (recipientEmail: string) => {
+    return fetch('https://ditmosserver2.onrender.com/send-mail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ recipientEmail, percent: percent.value }),
+    })
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((err) => console.log('err', err))
+  }
+
+  // sendMail(settingsData.email, productData.title, price.split(' ')[0], productData.link)
+
+  return {
+    results,
+    email,
+    violations,
+    percent,
+    isDialogEmailVisible,
+    isDialogConfirmVisible,
+    setResults,
+    sendMail,
+  }
 })
