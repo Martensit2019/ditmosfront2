@@ -29,7 +29,7 @@ const bgCircle = computed(() =>
     : 'var(--baseGreenColor)',
 )
 
-const iconUrl = computed(() => `src/assets/i/${props.questionnaire.icon}.svg`)
+const iconUrl = computed(() => `./src/assets/i/${props.questionnaire.icon}.svg`)
 </script>
 
 <style lang="scss" scoped>
